@@ -6,12 +6,24 @@
     <router-link to="/dashboard">
       Dashboard
     </router-link>
+    <router-link
+      to="/login"
+      class="button"
+      v-if="!loggedIn"
+    >
+      Login
+    </router-link>
   </div>
 </template>
 
 <script>
+import { authComputed } from '../store/helpers';
+
 export default {
   name: 'AppNav',
+  computed: {
+    ...authComputed,
+  },
 };
 </script>
 
