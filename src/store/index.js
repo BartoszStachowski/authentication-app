@@ -15,6 +15,11 @@ export default new Vuex.Store({
       // eslint-disable-next-line
       axios.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`;
     },
+    CLEAR_USER_DATA() {
+      localStorage.removeItem('user');
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
+    },
   },
   actions: {
     // eslint-disable-next-line no-unused-vars
@@ -29,6 +34,9 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit('SET_USER_DATA', data);
         });
+    },
+    logout({ commit }) {
+      commit('CLEAR_USER_DATA');
     },
   },
   modules: {},

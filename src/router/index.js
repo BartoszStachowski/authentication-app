@@ -17,6 +17,7 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+    meta: { requiresAuth: true },
   },
   {
     path: '/register',
@@ -34,6 +35,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem('user');
+
+  if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
+    next('/');
+  }
+  next();
 });
 
 export default router;
